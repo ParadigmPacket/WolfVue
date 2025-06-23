@@ -50,7 +50,7 @@ class YOLOTrainingTool:
             }
         }
         
-        # Load or create project
+        # FIXED: Load or create project (don't create directly)
         self.load_or_create_project()
     
     def load_or_create_project(self):
@@ -100,7 +100,7 @@ class YOLOTrainingTool:
         
         # Create new project
         self.create_new_project()
-    
+
     def create_new_project(self):
         """Create a new project"""
         project_name = input("\nEnter project name: ").strip()
@@ -119,21 +119,121 @@ class YOLOTrainingTool:
         self.save_project()
         
         print(f"Created new project: {project_name}")
-    
+
+    def _fix_integer_keys(self, state):
+        """Fix JSON serialization converting integer keys to strings"""
+        
+        # Fix dataset_stats class_counts
+        if 'dataset_stats' in state and 'class_counts' in state['dataset_stats']:
+            class_counts = state['dataset_stats']['class_counts']
+            if class_counts:
+                # Convert string keys back to integers
+                fixed_class_counts = {}
+                for key, value in class_counts.items():
+                    try:
+                        fixed_class_counts[int(key)] = value
+                    except (ValueError, TypeError):
+                        fixed_class_counts[key] = value  # Keep original if conversion fails
+                state['dataset_stats']['class_counts'] = fixed_class_counts
+        
+        # Fix selected_classes keys
+        if 'selected_classes' in state:
+            selected_classes = state['selected_classes']
+            if selected_classes:
+                fixed_selected_classes = {}
+                for key, value in selected_classes.items():
+                    try:
+                        fixed_selected_classes[int(key)] = value
+                    except (ValueError, TypeError):
+                        fixed_selected_classes[key] = value
+                    state['selected_classes'] = fixed_selected_classes
+        
+        # Fix target_counts keys
+        if 'target_counts' in state:
+            target_counts = state['target_counts']
+            if target_counts:
+                fixed_target_counts = {}
+                for key, value in target_counts.items():
+                    try:
+                        fixed_target_counts[int(key)] = value
+                    except (ValueError, TypeError):
+                        fixed_target_counts[key] = value
+                state['target_counts'] = fixed_target_counts
+        
+        # Fix class_mapping keys
+        if 'class_mapping' in state:
+            class_mapping = state['class_mapping']
+            if class_mapping:
+                fixed_class_mapping = {}
+                for key, value in class_mapping.items():
+                    try:
+                        fixed_class_mapping[int(key)] = value
+                    except (ValueError, TypeError):
+                        fixed_class_mapping[key] = value
+                state['class_mapping'] = fixed_class_mapping
+
+    def debug_class_ids(self):
+        """Debug method to check class ID types and values"""
+        print("\n🔍 DEBUG: Checking class ID data types and values...")
+
+        # Check dataset_stats
+        stats = self.project_state.get('dataset_stats', {})
+        class_counts = stats.get('class_counts', {})
+        print(f"\nDataset stats class_counts:")
+        for k, v in list(class_counts.items())[:5]:  # Show first 5
+            print(f"  Key: {repr(k)} (type: {type(k).__name__}) -> Value: {v}")
+
+        # Check selected_classes
+        selected = self.project_state.get('selected_classes', {})
+        print(f"\nSelected classes:")
+        for k, v in list(selected.items())[:5]:  # Show first 5
+            print(f"  Key: {repr(k)} (type: {type(k).__name__}) -> Name: {v.get('name', 'Unknown')}")
+
+        # Check target_counts
+        targets = self.project_state.get('target_counts', {})
+        print(f"\nTarget counts:")
+        for k, v in list(targets.items())[:5]:  # Show first 5
+            print(f"  Key: {repr(k)} (type: {type(k).__name__}) -> Count: {v}")
+
+        # Check actual annotation files
+        paths = self.project_state['paths']
+        labels_dir = Path(paths['labels_dir'])
+        print(f"\nSample annotation file content:")
+
+        sample_files = list(labels_dir.glob("*.txt"))[:3]  # Check first 3 files
+        for ann_file in sample_files:
+            if ann_file.name.lower() not in {"predefined_classes.txt", "classes.txt", "obj.names", "obj.data"}:
+                print(f"\nFile: {ann_file.name}")
+                try:
+                    with open(ann_file, 'r') as f:
+                        lines = f.readlines()[:3]  # First 3 lines
+                        for i, line in enumerate(lines):
+                            line = line.strip()
+                            if line:
+                                parts = line.split()
+                                if len(parts) >= 5:
+                                    print(f"  Line {i+1}: class_id = {repr(parts[0])} (type: {type(parts[0]).__name__})")
+                except Exception as e:
+                    print(f"  Error reading file: {e}")
+                break
+
     def load_project(self, project_file):
-        """Load project from file"""
+        """Load project from file with proper integer key handling"""
         try:
             with open(project_file, 'r') as f:
                 loaded_state = json.load(f)
-            
+        
+            # Fix JSON serialization issues with integer keys
+            self._fix_integer_keys(loaded_state)
+        
             # Merge loaded state with current state (preserve structure)
             self.project_state.update(loaded_state)
             self.project_file = project_file
-            
+        
             # Load YAML if path exists
             if self.project_state['paths']['yaml_path']:
                 self.load_yaml_config()
-            
+        
             return True
         except Exception as e:
             print(f"Error loading project: {e}")
@@ -311,7 +411,8 @@ class YOLOTrainingTool:
             return
         
         # Sort classes by count (largest first)
-        sorted_classes = sorted(class_counts.items(), key=lambda x: x[1], reverse=True)
+        sorted_classes = sorted(class_counts.items(), key=lambda x: (int(x[0]), x[1]), reverse=False)
+        sorted_classes = sorted(sorted_classes, key=lambda x: x[1], reverse=True)  # Sort by count
         
         print(f"\nClass Distribution (Largest to Smallest):")
         print("-" * 60)
@@ -730,37 +831,65 @@ class YOLOTrainingTool:
         labels_dir = Path(paths['labels_dir'])
         images_dir = Path(paths['images_dir'])
         
+        # CRITICAL FIX: Ensure class_id is an integer (fixes JSON serialization issue)
+        class_id = int(class_id)
+        
+        print(f"🔍 Looking for class {class_id} (type: {type(class_id).__name__})")  # Debug
+        
         class_files = []
         image_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.JPG', '.JPEG', '.PNG', '.BMP', '.TIFF']
+        
+        files_checked = 0
+        files_with_class = 0
         
         for ann_file in labels_dir.glob("*.txt"):
             if ann_file.name.lower() in {"predefined_classes.txt", "classes.txt", "obj.names", "obj.data"}:
                 continue
             
+            files_checked += 1
+            
             try:
                 # Check if this annotation file contains the target class
                 has_target_class = False
-                with open(ann_file, 'r') as f:
+                with open(ann_file, 'r', encoding='utf-8') as f:  # Added encoding
                     for line in f:
                         line = line.strip()
                         if line:
                             parts = line.split()
-                            if len(parts) >= 5 and int(parts[0]) == class_id:
-                                has_target_class = True
-                                break
+                            if len(parts) >= 5:
+                                try:
+                                    file_class_id = int(parts[0])
+                                    # FIXED: Both sides are now definitely integers
+                                    if file_class_id == class_id:
+                                        has_target_class = True
+                                        break
+                                except ValueError:
+                                    # Skip invalid class ID format
+                                    continue
                 
                 if not has_target_class:
                     continue
                 
+                files_with_class += 1
+                
                 # Find corresponding image
                 image_stem = ann_file.stem
+                image_found = False
                 for ext in image_extensions:
                     image_path = images_dir / f"{image_stem}{ext}"
                     if image_path.exists():
                         class_files.append((image_path, ann_file))
+                        image_found = True
                         break
-            except Exception:
+                
+                if not image_found:
+                    print(f"      ⚠️ No corresponding image found for {ann_file.name}")
+                    
+            except Exception as e:
+                print(f"      ⚠️ Error processing {ann_file.name}: {e}")
                 continue
+        
+        print(f"    📊 Class {class_id}: Checked {files_checked} files, found {files_with_class} with this class, {len(class_files)} valid pairs")
         
         # Remove duplicates and limit to target count
         class_files = list(set(class_files))
@@ -1707,10 +1836,13 @@ class YOLOTrainingTool:
             print("10: 🚀 Training wizard")
             print("11: 📖 Show training guide")
             
+            print(f"\n🐛 Debug:")
+            print("13: 🔍 Debug class IDs")
+            
             print(f"\n❌ Exit:")
             print("12: Exit")
             
-            choice = input("\nChoose option (1-12): ").strip()
+            choice = input("\nChoose option (1-13): ").strip()
             
             if choice == '1':
                 self.paths_configuration_menu()
@@ -1762,8 +1894,11 @@ class YOLOTrainingTool:
                 print("👋 Goodbye!")
                 break
                 
+            elif choice == '13':
+                self.debug_class_ids()
+                
             else:
-                print("Please enter 1-12")
+                print("Please enter 1-13")
 
 def main():
     """Main function with improved error handling"""
