@@ -169,7 +169,7 @@ that researchers and hobbiests may be able to utilize in the future.
 
 you can find more details as to the results of this model training in its respective folder.
 
-### About YOLO Model WolfVue_BetaV2
+### About YOLO Model WolfVue_Beta_BroadV2
 
 This (Idaho specific) model represents a significant step forward from the original WolfVue_Beta1, expanding from 6 species to 11 different wildlife species. The model was trained on 4,338 images containing 2,625 individual animal annotations across 50 epochs, achieving an mAP50 score of 0.673. In simple terms, this means the model correctly identifies and locates animals about 67% of the time when tested on completely new images it has never seen before.
 
@@ -182,8 +182,7 @@ Despite these limitations, this model can now identify Elk, WhiteTail deer, Mule
 I still cannot share MOST of the raw data due to NDA restrictions with the Gray Wolf Research Project and private property considerations, so open weights remain the best contribution I can make. THis model does have a large portion of open data, largely annotated by me. I would estimate around 1500 ish annotations are made on free data I sourced from IDaho Fish and Game, so if youre interested in using these annotations, feel free to contatc me at natebluto@gmail.com. I would include them here, but adding images to this github repo is a nightmare. 
 
 you can also find most of the public trail-camera data (non annotated) here:
-https://lila.science/datasets/idaho-camera-traps/
-
+ 
 📊 SPLIT OVERVIEW:
 Split    Images   Files    Annotations  Percentage
 -------------------------------------------------------
@@ -213,11 +212,39 @@ Most common species: 908 annotations
 Least common species: 18 annotations
 Balance ratio: 50.4:1
 
-### note about tool
+### about YOLO model WolfVue_LimitedV2
+
+This model is a more stable and accurate, but more limited model than WolfVue_Beta_BroadV2. Instead of having a large dataset with unbalanced trasining data, I focused on species that I had 100+ annotations with for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
+
+Species in model:
+-------------------------------------------------------
+WhiteTail
+MuleDeer
+Elk
+Cow
+Black Bear
+Mule Deer
+-------------------------------------------------------
+
+During training, this model achieved a 97.14% mAP50 score (accuracy).
+
+Doing some real world testing, I picked a trail camera from Idaho Fish and Game with unseen data at random.
+
+Loc_205 (avalible at https://lila.science/datasets/idaho-camera-traps/), contained mostly Elk. Testing on this real world dataset;
+
+it correctly identified 92.95% (488 out of 525) of all species in the "sorted" folder output. 
+It correctly identified No_animal  97.91% of the time (329 out of 329)
+It correctly sorted 90.93% (471 out of 518) of animals into the "Sorted" output folder
+
+I believe for a folder containing mostly these common species, this model may actually be a viable automated solution with minimal human oversight. This model is a step in the right direction, and with time and more annotations, hopefully we can get similar results with 13 species or more.
+
+Note: WolfVue automatically changes the thumbnail of the video to a point where an animal was detected. This makes it very easy to determine mistakes at a glance.
+
+### note about tools
 
 these tools are mostly self-explanatory and (somewhat) easy to understand/operate when you run them but sometimes they have a fewe quirks ill note here.
 
-for the annotation tool, if youre analysing a new dataset, BE SURE that you load the correct yaml file or else it will say you have annoitations of species you did not make e.g "395 Grizzly Bear annotations" because when you re-do the yaml you assign new number identifiers to the annotations, so you might get confusing resulkts if your yaml doesnt correspond to you balanced dataset.
+for the annotation tool, if youre analysing a new dataset, BE SURE that you load the correct yaml file or else it will say you have annotations of species you did not make e.g "395 Grizzly Bear annotations" because when you re-do the yaml you assign new number identifiers to the annotations, so you might get confusing resulkts if your yaml doesnt correspond to you balanced dataset.
 
 ### Performance Considerations
 

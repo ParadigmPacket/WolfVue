@@ -1,0 +1,12 @@
+path: C:\Users\Coastal_wolf\Desktop\WolfVue\WolfVueTrain\Datasets\Balanced_datasets\under_NDA\WolfVueLimitedBetaV2
+train: train/images
+val: val/images
+test: test/images
+nc: 6
+names:
+  0: WhiteTail
+  1: MuleDeer
+  2: Elk
+  3: Coyote
+  4: Black Bear
+  5: Cow
