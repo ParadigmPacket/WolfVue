@@ -161,7 +161,7 @@ this means its only actually able to identify 6 different species, is unbalanced
 
 This is NOT a good model, but its a start. 
 
-I cannot share the data, as its under NDA by the Gray Wolf Research Project, as some of it is on private property, so open weight is the best I can do. 
+I cannot share the data, as its restricted by the Gray Wolf Research Project, so open weight is the best I can do. 
 
 The goal of open sourcing this is to hopefully get some more trail cam videos that can be fine tuned for more species, more accurately, and maybe more efficiently.
 If im being completely honest I hardly know what im doing, so someone who does know what theyre doing might be able to take this to the next level, and make a good model
@@ -179,9 +179,9 @@ While the species count has nearly doubled, the dataset still suffers from signi
 
 Despite these limitations, this model can now identify Elk, WhiteTail deer, MuleDeer, Coyote, Cow, Black Bear, Rabbit, Moose, Wolf, Fox, and Cougar. The 67% accuracy represents solid progress, mostly dragged down by the under-represented species, though there's clearly room for improvement, especially for the underrepresented species.
 
-I still cannot share MOST of the raw data due to NDA restrictions with the Gray Wolf Research Project and private property considerations, so open weights remain the best contribution I can make. THis model does have a large portion of open data, largely annotated by me. I would estimate around 1500 ish annotations are made on free data I sourced from IDaho Fish and Game, so if youre interested in using these annotations, feel free to contatc me at natebluto@gmail.com. I would include them here, but adding images to this github repo is a nightmare. 
+I still cannot share MOST of the raw data due to restrictions with the Gray Wolf Research Project, so open weights remain the best contribution I can make. THis model does have a large portion of open data, largely annotated by me. I would estimate around 1500 ish annotations are made on free data I sourced from Idaho Fish and Game, so if youre interested in using these annotations, feel free to contact me at natebluto@gmail.com. I would include them here, but adding images to this github repo is a nightmare. 
 
-you can also find most of the public trail-camera data (non annotated) here:
+you can also find most of the public trail-camera data (non annotated) here: https://lila.science/datasets/idaho-camera-traps/
  
 SPLIT OVERVIEW:
 Split    Images   Files    Annotations  Percentage
@@ -213,7 +213,7 @@ Balance ratio: 50.4:1
 
 ### about YOLO model WolfVue_LimitedV2
 
-This model is a more stable and accurate, but more limited model than WolfVue_Beta_BroadV2. Instead of having a large dataset with unbalanced trasining data, I focused on species that I had 100+ annotations with for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
+This model is a more stable and accurate, but more limited model than WolfVue_Beta_BroadV2. Instead of having a large dataset with unbalanced training data, I focused on species that I had 100+ annotations with for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
 
 Species in model:
 
