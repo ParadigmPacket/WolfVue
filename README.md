@@ -144,7 +144,7 @@ names:
   8: "Fox"
   9: "Bear"
 ```
-Ideally, this list will expand in the future. Ity could hace already change, so refer the the actualy YAML file for updated pathing.S
+Ideally, this list will expand in the future. Ity could hace already change, so refer the the actualy YAML file for updated pathing.
 
 ### About YOLO Model WolfVue_Beta1
 
@@ -183,15 +183,15 @@ I still cannot share MOST of the raw data due to NDA restrictions with the Gray 
 
 you can also find most of the public trail-camera data (non annotated) here:
  
-📊 SPLIT OVERVIEW:
+SPLIT OVERVIEW:
 Split    Images   Files    Annotations  Percentage
--------------------------------------------------------
+
 train    3022     1511     1843         70.2        %
 val      858      429      500          19.0        %
 test     458      229      282          10.7        %
 
-🦌 SPECIES DISTRIBUTION BREAKDOWN:
-================================================================================
+SPECIES DISTRIBUTION BREAKDOWN:
+
 Species              ID  Train     Val       Test      Total    %
 ------------------------------------------------------------------------
 WhiteTail            0   634       181       93        908      34.6    %
@@ -207,7 +207,6 @@ Coyote               7   13        3         3         19       0.7     %
 Cougar               4   12        3         3         18       0.7     %
 
 ⚖️  DATASET BALANCE ANALYSIS:
-----------------------------------------
 Most common species: 908 annotations
 Least common species: 18 annotations
 Balance ratio: 50.4:1
@@ -217,7 +216,7 @@ Balance ratio: 50.4:1
 This model is a more stable and accurate, but more limited model than WolfVue_Beta_BroadV2. Instead of having a large dataset with unbalanced trasining data, I focused on species that I had 100+ annotations with for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
 
 Species in model:
--------------------------------------------------------
+
 WhiteTail
 MuleDeer
 Elk
