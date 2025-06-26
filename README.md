@@ -86,7 +86,7 @@ Find your sorted videos in:
 - Test with 1-2 videos first
 - Processing time varies by computer speed and video length
 - Check the processing report for detailed explanations
-
+- Yaml files for each model are often found paired with the .pt file in the weight's folder.
 Need help? Open an issue on GitHub with your error message and operating system.
 ## How It Works
 
@@ -241,9 +241,9 @@ Note: WolfVue automatically changes the thumbnail of the video to a point where 
 
 ### note about tools
 
-these tools are mostly self-explanatory and (somewhat) easy to understand/operate when you run them but sometimes they have a fewe quirks ill note here.
+these tools are mostly self-explanatory and (somewhat) easy to understand/operate when you run them but sometimes they have a few quirks I will note here.
 
-for the annotation tool, if youre analysing a new dataset, BE SURE that you load the correct yaml file or else it will say you have annotations of species you did not make e.g "395 Grizzly Bear annotations" because when you re-do the yaml you assign new number identifiers to the annotations, so you might get confusing resulkts if your yaml doesnt correspond to you balanced dataset.
+for the annotation tool, if youre analyzing a new dataset, BE SURE that you load the correct yaml file or else it will say you have annotations of species you did not make e.g "395 Grizzly Bear annotations" because when you re-do the yaml you assign new number identifiers to the annotations, so you might get confusing results if your yaml doesnt correspond to you balanced dataset.
 
 ### Performance Considerations
 
