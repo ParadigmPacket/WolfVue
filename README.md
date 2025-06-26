@@ -193,7 +193,7 @@ test     458      229      282          10.7        %
 SPECIES DISTRIBUTION BREAKDOWN:
 
 Species              ID  Train     Val       Test      Total    %
-------------------------------------------------------------------------
+
 WhiteTail            0   634       181       93        908      34.6    %
 Elk                  2   376       79        52        507      19.3    %
 Cow                  10  228       64        32        324      12.3    %
@@ -206,7 +206,7 @@ Lynx                 5   56        15        10        81       3.1     %
 Coyote               7   13        3         3         19       0.7     %
 Cougar               4   12        3         3         18       0.7     %
 
-⚖️  DATASET BALANCE ANALYSIS:
+DATASET BALANCE ANALYSIS:
 Most common species: 908 annotations
 Least common species: 18 annotations
 Balance ratio: 50.4:1
@@ -223,7 +223,7 @@ Elk
 Cow
 Black Bear
 Mule Deer
--------------------------------------------------------
+
 
 During training, this model achieved a 97.14% mAP50 score (accuracy).
 
