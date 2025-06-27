@@ -213,7 +213,7 @@ Balance ratio: 50.4:1
 
 ### about YOLO model WolfVue_LimitedV2
 
-This model is a more stable and accurate, but more limited model than WolfVue_Beta_BroadV2. Instead of having a large dataset with unbalanced training data, I focused on species that I had 100+ annotations with for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
+This model is more stable and accurate than any of my previous models, but more limited than WolfVue_Beta_BroadV2 in the number of species it can identify. Instead of having a large dataset with unbalanced training data, I focused on species that had 100+ annotations for stability. Each of the following species contained 133-250 annotations in the dataset across 6 common species, leading to a balanced model with little bias. 
 
 Species in model:
 
