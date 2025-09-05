@@ -144,7 +144,7 @@ names:
   8: "Fox"
   9: "Bear"
 ```
-Ideally, this list will expand in the future. Ity could hace already change, so refer the the actualy YAML file for updated pathing.
+Ideally, this list will expand in the future. It could have already changed, so refer the the actualy YAML file for updated pathing.
 
 ### About YOLO Model WolfVue_Beta1
 
