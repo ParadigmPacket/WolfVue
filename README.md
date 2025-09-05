@@ -40,9 +40,9 @@ A tool for automatically classifying trail camera photos and videos by species u
 
 ## Using WolfVue
 
-**Step 4: Add Your Videos**
+**Step 4: Add Your Videos and Photos**
 - Copy your trail camera videos into the `input_videos/` folder
-- Supported formats: .mp4, .avi, .mov, .mkv
+- Supported formats: .mp4, .avi, .mov, .mkv and most photo types.
 
 **Step 5: Run the Script**
 1. Open Command Prompt/Terminal and navigate to your WolfVue folder
