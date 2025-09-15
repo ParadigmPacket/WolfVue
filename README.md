@@ -1,6 +1,6 @@
 # WolfVue: Wildlife Video Classifier
 
-A tool for automatically classifying trail camera videos using YOLO object detection, originally developed for The Gray Wolf Research Project.
+A tool for automatically classifying trail camera photos & videos using YOLO object detection, originally developed for The Gray Wolf Research Project.
 
 ## Quick Start
 
