@@ -45,7 +45,7 @@ Note: this script has only been tested on windows 11 and may not operate on Mac/
 1. Open Command Prompt/Terminal and navigate to your WolfVue folder
 2. Run:
    ```
-   python wolfvue.py
+   python WolfVue.py
    ```
    if this doesnt work, try clicking on the WolfVue folder, and then click "copy filepath". Then modify the original prompt.
 
