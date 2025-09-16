@@ -10,6 +10,3 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 ENTRYPOINT [ "python", "WolfVue.py" ]
-
-#ENTRYPOINT ["tail"]
-#CMD ["-f","/dev/null"]
