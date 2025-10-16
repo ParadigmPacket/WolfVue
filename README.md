@@ -9,8 +9,6 @@ A tool for automatically classifying trail camera photos and videos by species u
 
 Python 3.8 or higher installed on your system.
 
-Note: this script has only been tested on windows 11 and may not operate on Mac/Linux correctly.
-
 ## Download & Setup
 
 **Step 1: Download WolfVue**
