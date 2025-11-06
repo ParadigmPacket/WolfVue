@@ -30,7 +30,8 @@ Python 3.8 or higher installed on your system.
    ```
 3. Install packages:
    ```
-   pip install ultralytics opencv-python pyyaml tqdm colorama
+   py -m pip install -r requirements.txt
+
    ```
 
 ## Using WolfVue
