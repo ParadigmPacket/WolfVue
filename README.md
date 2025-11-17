@@ -44,7 +44,7 @@ python tools/wolf_forge.py --epochs 100
 python WolfVue.py
 ```
 
-That's it. No Roboflow. No paid APIs. No 47-step tutorials.
+That's it. No Roboflow. No paid APIs.
 
 ---
 
