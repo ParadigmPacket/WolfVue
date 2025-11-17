@@ -10,10 +10,6 @@
 
 A tool for automatically classifying trail camera photos and videos by species using YOLO object detection, originally developed for The Gray Wolf Research Project. This project's main priority is for Idaho species commonly found on trailcams.
 
-# WolfVue Suite - 2025  
-**The complete open-source pipeline for camera-trap AI**  
-From raw trail-cam footage to publication-ready wolf detector in minutes.
-
 ### The 4-Tool Pipeline (run in this order)
 
 | Tool             | What it does                                            | One command                     |
